@@ -210,6 +210,13 @@
     .form-inner form.signup .field {
     width: 100%; /* Adjusted width to full width for better layout */
     }
+    .error{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        padding-top: 20px;
+        color: red;
+    }
     </style>
     <title>Sign In</title>
 </head>
@@ -242,7 +249,7 @@
               <input type="submit" value="Login">
             </div>
             <div class="signup-link">Not a member? <a href="">Signup now</a></div>
-            <div id="errors">
+            <div id="errors" class="error">
                 <!-- Display Error Messages -->
                     @if($errors->any())
                         <div>
