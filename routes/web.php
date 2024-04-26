@@ -10,3 +10,4 @@ Route::post('/signin', [AuthManager::class, 'signinPost'])->name('signin.post');
 
 Route::get('/home', function () {return view('home');})->name('home');
 Route::get('/logout', function () {return view('logout');})->name('logout');
+Route::get('/admin', function () {return view('admin');})->name('admin');
