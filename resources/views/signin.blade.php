@@ -249,6 +249,7 @@
               <input type="submit" value="Login">
             </div>
             <div class="signup-link">Not a member? <a href="">Signup now</a></div>
+            <div class="signup-link"><a href="{{ route('home') }}">Join as Guest</a></div>
             <div id="errors" class="error">
                 <!-- Display Error Messages -->
                     @if($errors->any())
