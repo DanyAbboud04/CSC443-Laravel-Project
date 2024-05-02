@@ -12,16 +12,39 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     /**
+     * The name of the primary key for the model.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'user_id';
+
+    /**
+     * The "type" of the auto-incrementing ID.
+     *
+     * @var string
+     */
+    protected $keyType = 'int';
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = true;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        "user_id",
         'first_name',
-        "last_name",
+        'last_name',
         'email',
-        'password'
+        'password',
+        'is_admin',
+        'is_active',
+        'is_guest'
     ];
 
     /**
@@ -47,3 +70,4 @@ class User extends Authenticatable
         ];
     }
 }
+
