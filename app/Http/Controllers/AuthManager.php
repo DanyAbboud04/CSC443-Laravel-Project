@@ -50,29 +50,26 @@ class AuthManager extends Controller
         return redirect()->route('signin')->with('success', 'Registration successful. Please sign in.');
     }
 
-    public function deactivateUser($id)
+public function toggleUserStatus($id) 
 {
-    $user = User::findOrFail($id);
-    if (!$user->is_admin) { // Ensure admins cannot be deactivated by mistake.
-        $user->is_active = false;
+    $user = User::findOrFail($id);  //check iif user exists hasab l id
+    if (!$user->is_admin) { 
+        $user->is_active = !$user->is_active; // set it to opposite, if active bt sir inactive w same lal eleb
         $user->save();
-        return redirect()->back()->with('success', 'User has been successfully deactivated.');
+        return redirect()->back();
     }
-    return redirect()->back()->with('error', 'Cannot deactivate this user.');
+    return redirect()->back();
 }
-
-public function toggleUserStatus($id)
+public function deleteGuest($id) //same mtl abel bas delete
 {
-    $user = User::findOrFail($id);
-    if (!$user->is_admin) { // Ensure admins cannot be deactivated by mistake.
-        $user->is_active = !$user->is_active; // Toggle the active status.
-        $user->save();
-        $statusMessage = $user->is_active ? 'activated' : 'deactivated';
-        return redirect()->back()->with('success', "User has been successfully {$statusMessage}.");
+    $user = User::findOrFail($id);  
+    if ($user->is_guest) { 
+        $user->delete();
+        return redirect()->back();
     }
-    return redirect()->back()->with('error', 'Cannot modify this user.');
-}
 
+    return redirect()->back();
+}
     function logout(){
         Session::flush();
         Auth::logout();

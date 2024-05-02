@@ -35,5 +35,5 @@ Route::get('/enter-as-guest', function (Request $request) {
     return redirect()->route('home');  // Redirect to the desired location
 });
 
-Route::post('/deactivate-user/{id}', [AuthManager::class, 'deactivateUser'])->name('deactivate-user');
-Route::post('/toggle-user-status/{id}', [AuthManager::class, 'toggleUserStatus'])->name('toggle-user-status');
+Route::post('/toggle-user-status/{id}', [AuthManager::class, 'toggleUserStatus'])->name('toggle-user-status'); //route takes post method, takes id tabaa l user w bt rouh aa toggleUserStatus  method bl authmanager class
+Route::delete('/delete-guest/{id}', [AuthManager::class, 'deleteGuest'])->name('delete-guest');  //nafs l chi hon bas la delete

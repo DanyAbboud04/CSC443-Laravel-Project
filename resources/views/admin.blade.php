@@ -126,12 +126,18 @@
                     @if (!$user->is_admin) 
                         <td>
                             @if($user->is_guest)
-                                
+                                <form action="{{ route('delete-guest', $user->user_id) }}" method="POST">  <!--going to route delete-guest and giving it user id-->
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="deactivate-btn" style="background-color: #ff4d4d;">
+                                        Delete Guest
+                                    </button>
+                                </form>
                             @else
-                                <form action="{{ route('toggle-user-status', $user->user_id) }}" method="POST">
+                                <form action="{{ route('toggle-user-status', $user->user_id) }}" method="POST">  <!--metl abel bas gher route-->
                                     @csrf
                                     <button type="submit" class="deactivate-btn" style="{{ $user->is_active ? 'background-color: #ff4d4d;' : 'background-color: #4CAF50;' }}">
-                                        {{ $user->is_active ? 'Deactivate' : 'Activate' }}
+                                        {{ $user->is_active ? 'Deactivate User' : 'Activate User' }}
                                     </button>
                                 </form>
                             @endif
