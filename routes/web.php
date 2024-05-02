@@ -29,8 +29,11 @@ Route::get('/enter-as-guest', function (Request $request) {
         'is_guest' => true,  
     ]);
 
-    // Optionally, log in the user as a guest
+    //log in the user as a guest
     Auth::login($guestUser);
 
     return redirect()->route('home');  // Redirect to the desired location
 });
+
+Route::post('/deactivate-user/{id}', [AuthManager::class, 'deactivateUser'])->name('deactivate-user');
+Route::post('/toggle-user-status/{id}', [AuthManager::class, 'toggleUserStatus'])->name('toggle-user-status');
