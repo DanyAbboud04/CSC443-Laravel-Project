@@ -49,6 +49,30 @@ class AuthManager extends Controller
         }
         return redirect()->route('signin')->with('success', 'Registration successful. Please sign in.');
     }
+
+    public function deactivateUser($id)
+{
+    $user = User::findOrFail($id);
+    if (!$user->is_admin) { // Ensure admins cannot be deactivated by mistake.
+        $user->is_active = false;
+        $user->save();
+        return redirect()->back()->with('success', 'User has been successfully deactivated.');
+    }
+    return redirect()->back()->with('error', 'Cannot deactivate this user.');
+}
+
+public function toggleUserStatus($id)
+{
+    $user = User::findOrFail($id);
+    if (!$user->is_admin) { // Ensure admins cannot be deactivated by mistake.
+        $user->is_active = !$user->is_active; // Toggle the active status.
+        $user->save();
+        $statusMessage = $user->is_active ? 'activated' : 'deactivated';
+        return redirect()->back()->with('success', "User has been successfully {$statusMessage}.");
+    }
+    return redirect()->back()->with('error', 'Cannot modify this user.');
+}
+
     function logout(){
         Session::flush();
         Auth::logout();
