@@ -13,15 +13,16 @@
     }
 
     .myNav {
-        background-color: #f0eded;
+        background: -webkit-linear-gradient(left, #003366, #004080, #0059b3, #0073e6);
+        color: white;
         height: 70px;
-        padding: 0;
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         right: 0;
         display: flex;
         justify-content: center;
+        z-index: 10000;
     }
 
     .nav-ul {
@@ -38,16 +39,15 @@
         font-size:1.5rem;
         margin-left:60px;
     }
-
     .nav-ul li:nth-child(2) a{
         text-decoration:none;
-        color: black;
+        color: white;
         margin-right:30px;
     }
 
     .nav-ul li:nth-child(3) a{
         text-decoration:none;
-        color: black;
+        color: white;
         margin-right:30px;
     }
 </style>
