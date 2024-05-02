@@ -138,7 +138,6 @@
     }
     .form-inner form .field input:focus{
     border-color: #1a75ff;
-    /* box-shadow: inset 0 0 3px #fb6aae; */
     }
     .form-inner form .field input::placeholder{
     color: #999;
@@ -249,7 +248,9 @@
               <input type="submit" value="Login">
             </div>
             <div class="signup-link">Not a member? <a href="">Signup now</a></div>
-            <div class="signup-link"><a href="{{ route('home') }}">Join as Guest</a></div>
+            <div class="signup-link">
+                <a href="{{ url('/enter-as-guest') }}">Enter as Guest</a>
+            </div>
             <div id="errors" class="error">
                 <!-- Display Error Messages -->
                     @if($errors->any())
