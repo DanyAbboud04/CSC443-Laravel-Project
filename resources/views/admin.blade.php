@@ -123,10 +123,21 @@
                     <td>{{ $user->is_admin ? 'True' : 'False' }}</td>
                     <td>{{ $user->is_active ? 'True' : 'False' }}</td>
                     <td>{{ $user->is_guest ? 'True' : 'False' }}</td>
-                    @if ($user->is_admin) 
-                        <td></td>  
+                    @if (!$user->is_admin) 
+                        <td>
+                            @if($user->is_guest)
+                                
+                            @else
+                                <form action="{{ route('toggle-user-status', $user->user_id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="deactivate-btn" style="{{ $user->is_active ? 'background-color: #ff4d4d;' : 'background-color: #4CAF50;' }}">
+                                        {{ $user->is_active ? 'Deactivate' : 'Activate' }}
+                                    </button>
+                                </form>
+                            @endif
+                        </td>
                     @else
-                        <td><button class="deactivate-btn" onclick="deactivateAccount()">Deactivate Account</button></td>
+                        <td></td>
                     @endif
                 </tr>
             @endforeach
@@ -135,9 +146,6 @@
     </div>
 
     <script>
-        function deactivateAccount() {
-            alert('Deactivate function not implemented.');
-        }
         
         function toggleUsers() {
             var container = document.getElementById('userContainer');
