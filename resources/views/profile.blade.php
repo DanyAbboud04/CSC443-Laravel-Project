@@ -110,6 +110,11 @@
     </style>
 </head>
 <body>
+    @if($user->is_guest)
+    <div class="center">
+        You are a guest, no profile available
+    </div>
+    @else
     <nav class="myNav">
         <ul class="nav-ul">
             <li>My App</li>
@@ -173,5 +178,6 @@
             </table>
         </div>
     </div>
+    @endif
 </body>
 </html>
