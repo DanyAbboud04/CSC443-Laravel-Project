@@ -110,11 +110,6 @@
     </style>
 </head>
 <body>
-    @if($user->is_guest)
-    <div class="center">
-        You are a guest, no profile available
-    </div>
-    @else
     <nav class="myNav">
         <ul class="nav-ul">
             <li>My App</li>
@@ -122,6 +117,11 @@
             <li><a href="{{ route('signin') }}">Logout</a></li>
         </ul>
     </nav>
+    @if($user->is_guest)
+    <div class="center">
+        You are a guest, no profile available
+    </div>
+    @else
     <div class="center">
         <div class="profile-container">
             @if(session('success'))
