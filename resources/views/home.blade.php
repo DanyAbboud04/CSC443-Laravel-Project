@@ -55,7 +55,7 @@
     <nav class="myNav">
         <ul class="nav-ul">
             <li>My App</li>
-            <li><a href="#">View Profile</a></li>
+            <li><a href="{{ route('profile') }}">View Profile</a></li>
             <li><a href="{{ route('signin') }}">Logout</a></li>
         </ul>
     </nav>
