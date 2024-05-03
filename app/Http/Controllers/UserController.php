@@ -34,7 +34,7 @@ class UserController extends Controller
 public function updateLastName(Request $request)
 {
     $user = Auth::user();
-    $user->lastt_name = $request->lastt_name;
+    $user->last_name = $request->last_name;
     $user->save();
 
     return back()->with('success', 'Last name updated successfully!');
