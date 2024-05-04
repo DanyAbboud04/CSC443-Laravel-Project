@@ -44,7 +44,11 @@
         color: white;
         margin-right:30px;
     }
-
+    .nav-ul li:nth-child(3) a{
+        text-decoration:none;
+        color: white;
+        margin-right:30px;
+    }
     .user-container {
         margin-top: 30px;
         padding: 20px;
@@ -86,8 +90,15 @@
         width: 100%;
         justify-content: center;
         display: flex;
+        gap: 10px;
+        margin-bottom: 30px;
     }
 
+    img.post-image {
+            width: 100px;
+            height: auto;
+            border-radius: 5px;
+        }
 </style>
 <body>
     <nav class="myNav">
@@ -98,9 +109,8 @@
     </nav>
 
     <div class="btn-container">
-        <button class="show-users" id="toggleButton" onclick="toggleUsers()">
-            Show Users
-        </button>
+        <button class="show-users action-btn" onclick="toggleVisibility('userContainer')">Show Users</button>
+        <button class="show-users action-btn" onclick="toggleVisibility('postContainer')">Show Posts</button>
     </div>
 
     <div class="user-container" id="userContainer">
@@ -150,23 +160,48 @@
             </tbody>
         </table>
     </div>
+    <div class="post-container" id="postContainer">
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Author</th>
+                    <th>Author Id</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach ($posts as $post)
+                <tr>
+                    <td>{{ $post->title }}</td>
+                    <td>{{ $post->description }}</td>
+                    <td>{{ $post->author }}</td>
+                    <td>{{ $post->user_id }}</td>
+                    <td><img src="{{ asset($post->image) }}" alt="Post Image" class="post-image"></td>
+                    <td>
+                        <form action="{{ route('deletepost', ['id' => $post->post_id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="deactivate-btn">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
 
     <script>
-        
-        function toggleUsers() {
-            var container = document.getElementById('userContainer');
-            var toggleButton = document.getElementById('toggleButton');
-            if (container.style.display === 'none') {
-                container.style.display = 'block'; 
-                toggleButton.textContent = 'Hide Users'; 
-            } else {
-                container.style.display = 'none'; 
-                toggleButton.textContent = 'Show Users';
-            }
+        function toggleVisibility(id) {
+            var container = document.getElementById(id);
+            container.style.display = container.style.display === 'none' ? 'block' : 'none';
         }
 
-        document.addEventListener('DOMContentLoaded', (event) => {
-            toggleUsers(); // This will set the initial display state to 'none'
+        document.addEventListener('DOMContentLoaded', () => {
+            toggleVisibility('userContainer');
+            toggleVisibility('postContainer');
         });
     </script>
 </body>
