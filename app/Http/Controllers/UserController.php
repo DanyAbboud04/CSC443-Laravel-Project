@@ -8,18 +8,16 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    // UserController.php
-
-    public function index()
-    {
-        $users = User::all(); // get all users from db
-        return view('admin', compact('users')); // pass all users to the view admin
-    }
-
-    public function getUser()
+    public function getUser()  //returning current user fir profile view
     {
         $user = Auth::user();  //get current user
         return view('profile', compact('user'));
+    }
+
+    public function getHomeUser()  //send user for creating a post view
+    {
+        $user = Auth::user();  // Get current user
+        return view('createpost', compact('user'));
     }
 
     public function updateFirstName(Request $request)
