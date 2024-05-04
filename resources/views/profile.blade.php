@@ -105,6 +105,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            font-size:1.5rem
         }
 
     </style>
@@ -113,7 +114,7 @@
     <nav class="myNav">
         <ul class="nav-ul">
             <li>My App</li>
-            <li><a href="{{ route('home') }}">Home</a></li>
+            <li><a href="{{ route('home.view') }}">Home</a></li>
             <li><a href="{{ route('signin') }}">Logout</a></li>
         </ul>
     </nav>
