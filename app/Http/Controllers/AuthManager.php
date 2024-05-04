@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -21,7 +22,7 @@ class AuthManager extends Controller
             return redirect()->intended(route('admin'));
         }
         else if (Auth::attempt($credentials)){
-            return redirect()->intended(route('home'));
+            return redirect()->intended(route('home.view'));
         }
         else{
             return redirect()->route('signin')->with('error', 'Invalid Email or Password');
@@ -74,5 +75,14 @@ public function deleteGuest($id) //same mtl abel bas delete
         Session::flush();
         Auth::logout();
         return redirect(route('/'));
+    }
+
+
+public function getAdminPostsAndUsers()     //returning all posts and users for admin panel
+    {
+        $posts = Post::all(); // Get all posts from the database
+        $users = User::all(); // get all users from db
+        return view('admin', compact('users', 'posts'));
+        // Always pass both 'user' and 'posts' to the home view
     }
 }
