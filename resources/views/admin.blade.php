@@ -49,13 +49,13 @@
         color: white;
         margin-right:30px;
     }
-    .user-container {
+    .user-container, .post-container {
         margin-top: 30px;
         padding: 20px;
         display: none; 
     }
 
-    .show-users{
+    .show-users, .show-posts {
         margin-top: 100px;
         padding: 20px;
         border: none;
@@ -95,10 +95,10 @@
     }
 
     img.post-image {
-            width: 100px;
-            height: auto;
-            border-radius: 5px;
-        }
+        width: 100px;
+        height: auto;
+        border-radius: 5px;
+    }
 </style>
 <body>
     <nav class="myNav">
@@ -109,8 +109,8 @@
     </nav>
 
     <div class="btn-container">
-        <button class="show-users action-btn" onclick="toggleVisibility('userContainer')">Show Users</button>
-        <button class="show-users action-btn" onclick="toggleVisibility('postContainer')">Show Posts</button>
+        <button class="show-users action-btn" onclick="toggleVisibility('userContainer', this)">Show Users</button>
+        <button class="show-posts action-btn" onclick="toggleVisibility('postContainer', this)">Show Posts</button>
     </div>
 
     <div class="user-container" id="userContainer">
@@ -178,7 +178,7 @@
                     <td>{{ $post->title }}</td>
                     <td>{{ $post->description }}</td>
                     <td>{{ $post->author }}</td>
-                    <td>{{ $post->user_id }}</td>
+                    <td>{{ $post->user_id }}</dd>
                     <td><img src="{{ asset($post->image) }}" alt="Post Image" class="post-image"></td>
                     <td>
                         <form action="{{ route('deletepost', ['id' => $post->post_id]) }}" method="POST">
@@ -194,15 +194,31 @@
     </div>
 
     <script>
-        function toggleVisibility(id) {
-            var container = document.getElementById(id);
-            container.style.display = container.style.display === 'none' ? 'block' : 'none';
-        }
+    function toggleVisibility(id, button) {
+        var container = document.getElementById(id);
+        var isVisible = container.style.display === 'block';  //check if container is visible
+        container.style.display = isVisible ? 'none' : 'block'; //if yes make it none else block
+        button.textContent = isVisible ? `Show ${id.includes('user') ? 'Users' : 'Posts'}` : `Hide ${id.includes('user') ? 'Users' : 'Posts'}`;  //changes button name hasab aya button houwe
+        localStorage.setItem(id + '-visible', !isVisible);// Save the visibility state of the container in localStorage
+    }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            toggleVisibility('userContainer');
-            toggleVisibility('postContainer');
-        });
-    </script>
+    document.addEventListener('DOMContentLoaded', () => {
+        //get user w post
+        var userContainer = document.getElementById('userContainer');
+        var postContainer = document.getElementById('postContainer');
+
+        // Get the visibility state of the containers from localStorage
+        var userVisible = JSON.parse(localStorage.getItem('userContainer-visible'));
+        var postVisible = JSON.parse(localStorage.getItem('postContainer-visible'));
+
+        userContainer.style.display = userVisible ? 'block' : 'none'; //set display of container user
+        postContainer.style.display = postVisible ? 'block' : 'none';//set display of container post
+
+        //update buttons
+        document.querySelector('.show-users').textContent = userVisible ? 'Hide Users' : 'Show Users';
+        document.querySelector('.show-posts').textContent = postVisible ? 'Hide Posts' : 'Show Posts';
+    });
+</script>
+
 </body>
 </html>
