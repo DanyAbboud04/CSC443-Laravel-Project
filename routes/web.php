@@ -44,7 +44,7 @@ Route::get('/home/view', [PostController::class, 'getHomePagePosts'])->name('hom
 Route::get('/profile/view', function () {return view('profile');})->name('profile.view');   //route la /profile/view, return profle account view
 Route::get('/profile/view', [UserController::class, 'getUser'])->name('profile.view');  //getting user info mn usercontroller w calling method getUser  w 
 Route::post('/profile/update/firstname', [UserController::class, 'updateFirstName'])->name('update.firstname');  //route takes post method tabaa update/firstname eno mtl update.firstname, bt rouh aal controller tabaa user w bt aayet lal method updateFirstName
-Route::post('/profile/update/lastname', [UserController::class, 'updateLasttName'])->name('update.lastname');
+Route::post('/profile/update/lastname', [UserController::class, 'updateLastName'])->name('update.lastname');
 Route::post('/profile/update/email', [UserController::class, 'updateEmail'])->name('update.email');
 Route::post('/profile/update/password', [UserController::class, 'resetPassword'])->name('update.password');
 
