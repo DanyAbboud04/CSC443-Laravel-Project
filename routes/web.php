@@ -5,6 +5,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController; 
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\AdminCheck;
+
 
 Route::get('/', function () {return view('signin');})->name('signin'); //route for url / return signin view
 
@@ -12,12 +14,12 @@ Route::get('/', function () {return view('signin');})->name('signin'); //route f
 Route::post('/signup', [AuthManager::class, 'signupPost'])->name('signup.post');  //post route for  /signup call method signupPost in authmanager where we are creating user account
 Route::post('/signin', [AuthManager::class, 'signinPost'])->name('signin.post'); //post route for  /signin call method signinPost in authmanager where we are checking if user account is valid, or admin
 
-//lal admin
-Route::get('/admin', function () {return view('admin');})->name('admin');  //route la /admin, return admin panel view
-Route::get('/admin', [AuthManager::class, 'getAdminPostsAndUsers'])->name('admin');  //calling getAdminPostsAndUsers mn authmanager class  
-Route::post('/toggle-user-status/{id}', [AuthManager::class, 'toggleUserStatus'])->name('toggle-user-status'); //route takes post method, takes id tabaa l user w bt rouh aa toggleUserStatus  method bl authmanager class , ta na3mol l user account active or disactivated mn l admin panel
-Route::delete('/delete-guest/{id}', [AuthManager::class, 'deleteGuest'])->name('delete-guest');  //nafs l chi hon bas la delete w bas lal guests mn l admin panel fi y delete guests
-
+Route::middleware([AdminCheck::class])->group(function () {
+    Route::get('/admin', function () { return view('admin'); })->name('admin');
+    Route::get('/admin', [AuthManager::class, 'getAdminPostsAndUsers'])->name('admin');
+    Route::post('/toggle-user-status/{id}', [AuthManager::class, 'toggleUserStatus'])->name('toggle-user-status');
+    Route::delete('/delete-guest/{id}', [AuthManager::class, 'deleteGuest'])->name('delete-guest');
+});
 //enter as guest
 Route::get('/enter-as-guest', function (Request $request) {  //creating guest account for user so he can enter as guest and check posts
     $guestUser = User::create([
