@@ -14,21 +14,23 @@ class AuthManager extends Controller
 {
     function signinPost(Request $request){
         $request->validate([
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required',
         ]);
         $credentials = $request->only('email', 'password');
-        if($credentials['email']==='admin@gmail.com' && $credentials['password']==='admin'){
-            return redirect()->intended(route('admin'));
-        }
-        else if (Auth::attempt($credentials)){
-            return redirect()->intended(route('home.view'));
-        }
-        else{
+        if (Auth::attempt($credentials)) {  //check user authentication
+            $user = Auth::user(); //if we enter get user
+    
+            if ($user->is_admin) {
+                return redirect()->intended(route('admin'));
+            } else {
+                return redirect()->route('home.view');
+            }
+        } else {
             return redirect()->route('signin')->with('error', 'Invalid Email or Password');
         }
     }
-
+    
     function signupPost(Request $request){
         $request->validate([
             'fname' => 'required',
@@ -78,11 +80,11 @@ public function deleteGuest($id) //same mtl abel bas delete
     }
 
 
-public function getAdminPostsAndUsers()     //returning all posts and users for admin panel
+    public function getAdminPostsAndUsers()     //returning all posts and users for admin panel
     {
         $posts = Post::all(); // Get all posts from the database
         $users = User::all(); // get all users from db
-        return view('admin', compact('users', 'posts'));
-        // Always pass both 'user' and 'posts' to the home view
+        $adminCheck = auth()->user()->is_admin;
+        return view('admin', compact('users', 'posts', 'adminCheck'));
     }
 }
