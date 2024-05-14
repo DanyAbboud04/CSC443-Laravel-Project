@@ -53,11 +53,15 @@ public function delete($id)   //deleteing a post
     }
 
 
-public function getHomePagePosts()    //sending all posts for home view
+    
+public function getHomePagePosts(Request $request)    
 {
-    $posts = Post::all(); // Get all posts from the database
-    // Always pass both 'user' and 'posts' to the home view
+    if ($request->query('mine') == 'true') {  //if mine is true
+        $posts = Post::where('user_id', auth()->id())->get();  //get posts of user only, it will check if user_id is same as logged in user and will get them
+    } else {
+        $posts = Post::all();  //get all
+    }
+
     return view('home', compact('posts'));
 }
-
 }

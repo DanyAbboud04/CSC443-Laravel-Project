@@ -11,7 +11,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif; /* Use a common font for better compatibility */
+            font-family: Arial, sans-serif; 
         }
 
         .myNav {
@@ -40,7 +40,7 @@
             flex-grow: 1;
             text-align: center;
             font-size: 1.5rem;
-            margin-left: 60px;
+            margin-left: 460px;
         }
 
         .nav-ul li a {
@@ -56,7 +56,7 @@
         }
 
         .post {
-            width: 70%; /* Adjust the width as needed */
+            width: 70%; 
             margin-bottom: 30px;
             background-color: #fff;
             border-radius: 10px;
@@ -124,6 +124,8 @@
     <nav class="myNav">
         <ul class="nav-ul">
             <li>My App</li>
+            <li><a href="{{ route('home.view') }}">All Posts</a></li>
+            <li><a href="{{ route('home.view', ['mine' => 'true']) }}">My Posts</a></li>
             <li><a href="{{ route('createpost.view') }}">Create Post</a></li>
             <li><a href="{{ route('profile.view') }}">View Profile</a></li>
             <li><a href="{{ route('signin') }}">Logout</a></li>
