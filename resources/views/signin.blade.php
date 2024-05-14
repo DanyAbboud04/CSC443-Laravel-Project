@@ -216,6 +216,9 @@
         padding-top: 20px;
         color: red;
     }
+    .success{
+      color:green;
+    }
     </style>
     <title>Sign In</title>
 </head>
@@ -267,7 +270,7 @@
 
 
                     @if(session()->has('success'))
-                        <div>{{session('success')}}</div>
+                      <div class="success">{{session('success')}}</div>
                     @endif
             </div>
           </form>
