@@ -99,6 +99,16 @@
         height: auto;
         border-radius: 5px;
     }
+
+    .center{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-size:1.5rem
+        }
+
+
 </style>
 <body>
     <nav class="myNav">
@@ -107,7 +117,7 @@
             <li><a href="{{ route('signin') }}">Logout</a></li>
         </ul>
     </nav>
-
+    @if ($adminCheck === 1)
     <div class="btn-container">
         <button class="show-users action-btn" onclick="toggleVisibility('userContainer', this)">Show Users</button>
         <button class="show-posts action-btn" onclick="toggleVisibility('postContainer', this)">Show Posts</button>
@@ -192,6 +202,11 @@
             </tbody>
         </table>
     </div>
+    @else
+        <div class="center">
+            You are not an admin, go back using logout button
+        </div>
+    @endif
 
     <script>
     function toggleVisibility(id, button) {
