@@ -25,4 +25,9 @@ class Post extends Model
         return $this->belongsTo(User::class, 'user_id'); // Defines a many-to-one relationship with the User model.
     }
 
+    public function replies()     // Defines a relationship where a Post has many Replies
+    {
+        return $this->hasMany(Reply::class, 'post_id', 'post_id');
+    }
+
 }
