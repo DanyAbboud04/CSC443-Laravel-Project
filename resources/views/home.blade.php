@@ -136,7 +136,7 @@
         .hidden{
             display: none;
         }
-        textarea {
+        .reply-textarea {
             width: 90%; 
             height: 100px; 
             padding: 10px; 
@@ -150,69 +150,69 @@
             resize: vertical; 
         }
 
-.reply-toggle {
-    margin-top: 20px;
-    padding: 8px 15px; 
-    background-color: #007bff; 
-    color: white; 
-    border: none; 
-    border-radius: 5px;
-    cursor: pointer; 
-    transition: background-color 0.3s; 
-}
+        .reply-toggle {
+            margin-top: 20px;
+            padding: 8px 15px; 
+            background-color: #007bff; 
+            color: white; 
+            border: none; 
+            border-radius: 5px;
+            cursor: pointer; 
+            transition: background-color 0.3s; 
+        }
 
-.reply-toggle:hover {
-    background-color: #0056b3; 
-}
+        .reply-toggle:hover {
+            background-color: #0056b3; 
+        }
 
-.reply-button {
-    margin-top: 5px;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    padding: 8px 15px;
-    color: white;
-}
+        .reply-button {
+            margin-top: 5px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            padding: 8px 15px;
+            color: white;
+        }
 
-.form-container {
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-}
+        .form-container {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+        }
 
-.form-container form {
-    width: 100%;
-    padding: 15px;
-    background: #f8f9fa;
-    border-radius: 5px; 
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+        .form-container form {
+            width: 100%;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
 
-.delete-form{
-    width: 0 !important;
-    padding: 0 !important;
-    background: none !important;
-    border-radius: 0 !important;
-}
+        .delete-form{
+            width: 0 !important;
+            padding: 0 !important;
+            background: none !important;
+            border-radius: 0 !important;
+        }
 
-.delete-form button{
-    background-color: #ff4d4d;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 8px;
-    margin-bottom: 5px;
-    width: 100px;
-}
+        .delete-form button{
+            background-color: #ff4d4d;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 8px;
+            margin-bottom: 5px;
+            width: 100px;
+        }
 
-.reply-container{
-    display: flex;
-}
+        .reply-container{
+            display: flex;
+        }
     </style>
 </head>
 <body>
@@ -310,7 +310,7 @@
                 @if(auth()->check() && !auth()->user()->is_guest && auth()->user()->is_active)
                     <form action="{{ route('replies.store', $post->post_id) }}" method="POST">
                         @csrf
-                        <textarea name="content" required></textarea>
+                        <textarea class="reply-textarea" name="content" required></textarea>
                         <button type="submit" class="reply-button">Post Reply</button>
                     </form>
                 @elseif(auth()->user()->is_guest)
