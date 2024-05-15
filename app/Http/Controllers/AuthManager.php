@@ -36,8 +36,20 @@ class AuthManager extends Controller
             'fname' => 'required',
             'lname' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required',
-        ]);
+            'password' => [
+                'required',
+                'confirmed',
+                'min:5',
+                'regex:/[A-Z]/',     
+                'regex:/[a-z]/',     
+                'regex:/[0-9]/',      
+                'regex:/[\W]/',    
+                ]
+            ], [
+                'password.regex' => 'The :attribute must include at least one uppercase letter, one lowercase letter, one number, and one special character.',
+                'password.min' => 'The :attribute must be at least 5 characters long.',
+                'password.confirmed' => 'The passwords do not match.',
+            ]);
     
         $data['first_name'] = $request->fname;
         $data['last_name'] = $request->lname;
