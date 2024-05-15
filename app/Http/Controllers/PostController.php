@@ -56,9 +56,10 @@ class PostController extends Controller
     public function getHomePagePosts(Request $request)    
     {
         if ($request->query('mine') == 'true') {  //if mine is true
-            $posts = Post::where('user_id', auth()->id())->get();  //get posts of user only, it will check if user_id is same as logged in user and will get them
+            $posts = Post::where('user_id', auth()->id())->orderBy('created_at', 'desc')->paginate(10);
+            //get posts of user only, it will check if user_id is same as logged in user and will get them bas bel eleb bede yehon yaane descending
         } else {
-            $posts = Post::all();  //get all
+            $posts = Post::orderBy('created_at', 'desc')->paginate(10);  //get all
         }
 
         return view('home', compact('posts'));
