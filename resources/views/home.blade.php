@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
@@ -179,6 +180,21 @@
             <div class="post-meta">
                 <p>Posted by {{ $post->author }} at {{ $post->created_at }}</p>
             </div>
+            <div>
+        </div>
+        @php
+        //check if post is liked by the user
+            $liked = DB::table('likes')->where('post_id', $post->post_id)->where('user_id', auth()->id())->exists();
+        @endphp
+        <!-- if user if user and is not guest -->
+        @if(auth()->check() && !auth()->user()->is_guest)
+            <form action="{{ route('posts.toggle-like', $post->post_id) }}" method="POST">  <!--post to route with post id-->
+                @csrf
+                <button type="submit" style="background: none; border: none; color: {{ $liked ? 'red' : 'grey' }}; cursor:pointer;">
+                    <i class="fas fa-heart"></i>
+                </button>            
+            </form>
+        @endif
         </div>
         @endforeach
     </div>

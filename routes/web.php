@@ -57,3 +57,6 @@ Route::delete('/deletepost/{id}', [PostController::class, 'delete'])->name('dele
 
 Route::get('/createpost/view', function () {return view('createpost');})->name('createpost.view'); //route la /createpost/view, return creating post view
 Route::get('/createpost/view', [UserController::class, 'getHomeUser'])->name('createpost.view');  //calling gethomeuser mn user controller hek l user fi ychouf his infp
+
+//like/unlike
+Route::post('/posts/{id}/toggle-like', [PostController::class, 'toggleLikePost'])->name('posts.toggle-like');//post route to toggle like post with id on post controller
