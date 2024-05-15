@@ -136,6 +136,60 @@
         .hidden{
             display: none;
         }
+        textarea {
+            width: 90%; 
+            height: 100px; 
+            padding: 10px; 
+            margin-top: 10px; 
+            margin-bottom: 10px; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            box-shadow: inset 0 1px 3px #ddd; 
+            font-size: 16px; 
+            line-height: 1.5; 
+            resize: vertical; 
+        }
+
+.reply-toggle {
+    margin-top: 20px;
+    padding: 8px 15px; 
+    background-color: #007bff; 
+    color: white; 
+    border: none; 
+    border-radius: 5px;
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+}
+
+.reply-toggle:hover {
+    background-color: #0056b3; 
+}
+
+.reply-button {
+    margin-top: 5px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    padding: 8px 15px;
+    color: white;
+}
+
+.form-container {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+.form-container form {
+    width: 100%;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 5px; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
     </style>
 </head>
 <body>
@@ -199,9 +253,7 @@
             <div class="post-meta">
                 <p>Posted by {{ $post->author }} at {{ $post->created_at }}</p>
             </div>
-            <div>
-        </div>
-        @php
+            @php
         //check if post is liked by the user
             $liked = DB::table('likes')->where('post_id', $post->post_id)->where('user_id', auth()->id())->exists();
         @endphp
@@ -209,11 +261,28 @@
         @if(auth()->check() && !auth()->user()->is_guest)
             <form action="{{ route('posts.toggle-like', $post->post_id) }}" method="POST">  <!--post to route with post id-->
                 @csrf
-                <button type="submit" style="background: none; border: none; color: {{ $liked ? 'red' : 'grey' }}; cursor:pointer;">
+                <button type="submit" style="background: none; border: none; color: {{ $liked ? 'red' : 'grey' }}; cursor:pointer; margin-top:5px;">
                     <i class="fas fa-heart"></i>
                 </button>            
             </form>
         @endif
+            <button class="reply-toggle" onclick="toggleReplies({{ $post->post_id }})">Show/Hide Replies</button>
+            <div id="replies-{{ $post->post_id }}" style="display: none;" class="form-container">
+                @foreach ($post->replies as $reply)  <!--loop through all replies of post and display-->
+                    <p>{{ $reply->content }} -posted by <small>{{ $reply->user->first_name }}</small></p>
+                @endforeach
+                @if(auth()->check() && !auth()->user()->is_guest && auth()->user()->is_active)
+                    <form action="{{ route('replies.store', $post->post_id) }}" method="POST">
+                        @csrf
+                        <textarea name="content" required></textarea>
+                        <button type="submit" class="reply-button">Post Reply</button>
+                    </form>
+                @elseif(auth()->user()->is_guest)
+                    <p>You are a guest, you cannot add replies</p>
+                @else
+                    <p>You must be an active user to post replies.</p>
+                @endif
+            </div>
         </div>
         @endforeach
 
@@ -223,3 +292,10 @@
     </div>
 </body>
 </html>
+
+<script>
+    function toggleReplies(postId) {
+        var element = document.getElementById('replies-' + postId);
+        element.style.display = (element.style.display === 'none' ? 'block' : 'none');
+    }
+</script>

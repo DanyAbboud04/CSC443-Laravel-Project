@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthManager;
 use App\Http\Controllers\UserController; 
 use App\Http\Controllers\PostController; 
+use App\Http\Controllers\ReplyController; 
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminCheck;
@@ -60,3 +61,6 @@ Route::get('/createpost/view', [UserController::class, 'getHomeUser'])->name('cr
 
 //like/unlike
 Route::post('/posts/{id}/toggle-like', [PostController::class, 'toggleLikePost'])->name('posts.toggle-like');//post route to toggle like post with id on post controller
+
+//post replies
+Route::post('/posts/{postId}/replies', [ReplyController::class, 'storeReply'])->name('replies.store');
