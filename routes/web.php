@@ -65,3 +65,8 @@ Route::post('/posts/{id}/toggle-like', [PostController::class, 'toggleLikePost']
 //post replies/delete replies
 Route::post('/posts/{postId}/replies', [ReplyController::class, 'storeReply'])->name('replies.store');
 Route::delete('/replies/{replyId}', [ReplyController::class, 'deleteReply'])->name('replies.delete')->middleware('auth');
+
+
+
+Route::get('/search', [PostController::class, 'search'])->name('posts.search');
+Route::get('/sort/{criteria}', [PostController::class, 'sort'])->name('posts.sort');

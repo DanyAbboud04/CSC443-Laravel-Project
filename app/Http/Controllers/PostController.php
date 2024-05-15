@@ -81,4 +81,25 @@ class PostController extends Controller
         }
         return back();  //go back
     }
+
+
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $posts = Post::where('title', 'like', "%$keyword%")
+                     ->orWhere('description', 'like', "%$keyword%")
+                     ->paginate(10); // Paginate the search results
+
+        return view('home', compact('posts'));
+    }
+    public function sort($criteria)
+    {
+        if ($criteria === 'date') {
+            $posts = Post::orderBy('created_at', 'desc')->paginate(10);;
+        } elseif ($criteria === 'user') {
+            $posts = Post::orderBy('author')->paginate(10);;
+        } 
+
+        return view('home', compact('posts'));
+    }
 }

@@ -213,6 +213,40 @@
         .reply-container{
             display: flex;
         }
+        .search-container {
+            margin-top: -80px; 
+            margin-right: 20px; 
+            float: right;
+        }
+
+        .sort-container {
+            margin-top: -80px; 
+            margin-left: 20px; 
+            float: left;
+        }
+
+        .search-container input[type="text"],
+        .search-container button,
+        .sort-container select {
+            padding: 5px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .search-container button,
+        .sort-container select {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 0 5px 5px 0;
+            margin-left: -5px; /* Adjust as needed */
+        }
+
+        .sort-container select {
+            padding: 5px 10px;
+        }
     </style>
 </head>
 <body>
@@ -229,6 +263,22 @@
     <div class="center">
         <h1>Posts</h1>
     </div>
+
+    <div class="search-container">
+    <form action="{{ route('posts.search') }}" method="GET">
+        <input type="text" name="keyword" placeholder="Search Posts">
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+<div class="sort-container">
+    <select onchange="window.location.href=this.value">
+        <option value="{{ route('posts.sort', '') }}">Select Sort Option</option>
+        <option value="{{ route('posts.sort', 'date') }}">Sort by Date</option>
+        <option value="{{ route('posts.sort', 'user') }}">Sort by User</option>
+    </select>
+</div>
+
     <div class="container">
     @foreach ($posts as $post)
         <div class="post">
@@ -286,7 +336,7 @@
                 @csrf
                 <button type="submit" style="background: none; border: none; color: {{ $liked ? 'red' : 'grey' }}; cursor:pointer; margin-top:5px;">
                     <i class="fas fa-heart"></i>
-                </button>            
+                </button>     
             </form>
         @endif
             <button class="reply-toggle" onclick="toggleReplies({{ $post->post_id }})">Show/Hide Replies</button>
