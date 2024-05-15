@@ -268,9 +268,13 @@
         @endif
             <button class="reply-toggle" onclick="toggleReplies({{ $post->post_id }})">Show/Hide Replies</button>
             <div id="replies-{{ $post->post_id }}" style="display: none;" class="form-container">
-                @foreach ($post->replies as $reply)  <!--loop through all replies of post and display-->
-                    <p>{{ $reply->content }} -posted by <small>{{ $reply->user->first_name }}</small></p>
-                @endforeach
+                @if ($post->replies->isEmpty()) <!-- Check if there are no replies -->
+                    <p>No replies yet.</p> <!-- Display a message if there are no replies -->
+                @else
+                    @foreach ($post->replies as $reply)
+                        <p>{{ $reply->content }} -posted by <small>{{ $reply->user->first_name }}</small></p>
+                    @endforeach
+                @endif
                 @if(auth()->check() && !auth()->user()->is_guest && auth()->user()->is_active)
                     <form action="{{ route('replies.store', $post->post_id) }}" method="POST">
                         @csrf
