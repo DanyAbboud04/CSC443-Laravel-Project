@@ -62,5 +62,6 @@ Route::get('/createpost/view', [UserController::class, 'getHomeUser'])->name('cr
 //like/unlike
 Route::post('/posts/{id}/toggle-like', [PostController::class, 'toggleLikePost'])->name('posts.toggle-like');//post route to toggle like post with id on post controller
 
-//post replies
+//post replies/delete replies
 Route::post('/posts/{postId}/replies', [ReplyController::class, 'storeReply'])->name('replies.store');
+Route::delete('/replies/{replyId}', [ReplyController::class, 'deleteReply'])->name('replies.delete')->middleware('auth');

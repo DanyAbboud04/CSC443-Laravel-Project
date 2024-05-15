@@ -17,4 +17,17 @@ class ReplyController extends Controller
     
         return back();
     }
+
+    public function deleteReply($replyId)
+{
+    $reply = Reply::findOrFail($replyId);
+
+    // if user not owner of reply
+    if (auth()->id() !== $reply->user_id) {
+        return back();
+    }
+    //else delete reply
+    $reply->delete();
+    return back();
+}
 }

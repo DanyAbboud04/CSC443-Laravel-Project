@@ -190,6 +190,29 @@
     border-radius: 5px; 
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
+.delete-form{
+    width: 0 !important;
+    padding: 0 !important;
+    background: none !important;
+    border-radius: 0 !important;
+}
+
+.delete-form button{
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 8px;
+    margin-bottom: 5px;
+    width: 100px;
+}
+
+.reply-container{
+    display: flex;
+}
     </style>
 </head>
 <body>
@@ -268,11 +291,20 @@
         @endif
             <button class="reply-toggle" onclick="toggleReplies({{ $post->post_id }})">Show/Hide Replies</button>
             <div id="replies-{{ $post->post_id }}" style="display: none;" class="form-container">
-                @if ($post->replies->isEmpty()) <!-- Check if there are no replies -->
-                    <p>No replies yet.</p> <!-- Display a message if there are no replies -->
+                @if ($post->replies->isEmpty()) <!-- if there are no replies -->
+                    <p>No replies yet</p> 
                 @else
                     @foreach ($post->replies as $reply)
-                        <p>{{ $reply->content }} -posted by <small>{{ $reply->user->first_name }} {{ $reply->user->last_name }}</small></p>
+                        <div class="reply-container">
+                            <p>{{ $reply->content }} -posted by <small>{{ $reply->user->first_name }} {{ $reply->user->last_name }}</small></p>
+                            @if(auth()->id() === $reply->user_id) <!-- Show delete button only lal user l posted it -->
+                                <form class="delete-form" action="{{ route('replies.delete', $reply->id) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="delete-reply-btn">Delete Reply</button>
+                                </form>
+                            @endif
+                        </div>
                     @endforeach
                 @endif
                 @if(auth()->check() && !auth()->user()->is_guest && auth()->user()->is_active)
