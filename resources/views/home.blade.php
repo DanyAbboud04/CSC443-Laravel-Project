@@ -272,7 +272,7 @@
                     <p>No replies yet.</p> <!-- Display a message if there are no replies -->
                 @else
                     @foreach ($post->replies as $reply)
-                        <p>{{ $reply->content }} -posted by <small>{{ $reply->user->first_name }}</small></p>
+                        <p>{{ $reply->content }} -posted by <small>{{ $reply->user->first_name }} {{ $reply->user->last_name }}</small></p>
                     @endforeach
                 @endif
                 @if(auth()->check() && !auth()->user()->is_guest && auth()->user()->is_active)
