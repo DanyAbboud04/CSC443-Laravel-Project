@@ -119,6 +119,23 @@
             margin-left: 880px;
 
         }
+        svg{
+            display: none;
+        }
+        .pagination a {
+            margin: 0 5px;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .pagination a:hover {
+            background-color: #0056b3;
+        }
+        .hidden{
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -164,7 +181,9 @@
                     <h2>{{ $post->title }}</h2>
                 @endif
             </div>
-            <img src="{{ asset($post->image) }}" alt="Post Image">
+            @if ($post->image)
+                <img src="{{ asset($post->image) }}" alt="Post Image">
+            @endif            
             <div>
                 @if ($post->user_id === auth()->id())
                     <form action="{{ route('editpost', ['id' => $post->post_id]) }}" method="POST">
@@ -197,6 +216,10 @@
         @endif
         </div>
         @endforeach
+
+        <div class="pagination">
+            {{ $posts->links() }}
+        </div>
     </div>
 </body>
 </html>
