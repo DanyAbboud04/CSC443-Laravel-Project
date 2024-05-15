@@ -274,7 +274,8 @@
 <div class="sort-container">
     <select onchange="window.location.href=this.value">
         <option value="{{ route('posts.sort', '') }}">Select Sort Option</option>
-        <option value="{{ route('posts.sort', 'date') }}">Sort by Date</option>
+        <option value="{{ route('posts.sort', 'latest') }}">Sort by Date(latest)</option>
+        <option value="{{ route('posts.sort', 'oldest') }}">Sort by Date(oldest)</option>
         <option value="{{ route('posts.sort', 'user') }}">Sort by User</option>
     </select>
 </div>

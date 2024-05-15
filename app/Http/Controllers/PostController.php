@@ -88,16 +88,19 @@ class PostController extends Controller
         $keyword = $request->input('keyword');
         $posts = Post::where('title', 'like', "%$keyword%")
                      ->orWhere('description', 'like', "%$keyword%")
-                     ->paginate(10); // Paginate the search results
+                     ->paginate(10); 
 
         return view('home', compact('posts'));
     }
     public function sort($criteria)
     {
-        if ($criteria === 'date') {
+        if ($criteria === 'latest') {
             $posts = Post::orderBy('created_at', 'desc')->paginate(10);;
         } elseif ($criteria === 'user') {
             $posts = Post::orderBy('author')->paginate(10);;
+        } 
+        elseif ($criteria === 'oldest') {
+            $posts = Post::orderBy('created_at', 'asc')->paginate(10);;
         } 
 
         return view('home', compact('posts'));
