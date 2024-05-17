@@ -347,8 +347,8 @@
                 @else
                     @foreach ($post->replies as $reply)
                         <div class="reply-container">
-                            <p>{{ $reply->content }} -posted by <small>{{ $reply->user->first_name }} {{ $reply->user->last_name }}</small></p>
-                            @if(auth()->id() === $reply->user_id) <!-- Show delete button only lal user l posted it -->
+                            <p>{{ $reply->content }} -posted by <small>{{ $reply->user ? $reply->user->first_name : 'Unknown User' }} {{ $reply->user ? $reply->user->last_name : 'Unknown User' }}</small></p>
+                            @if(auth()->id() === $reply->user_id) 
                                 <form class="delete-form" action="{{ route('replies.delete', $reply->id) }}" method="POST" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
