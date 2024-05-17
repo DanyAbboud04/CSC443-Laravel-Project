@@ -264,7 +264,7 @@
         <h1>Posts</h1>
     </div>
 
-    <div class="search-container">
+<div class="search-container">
     <form action="{{ route('posts.search') }}" method="GET">
         <input type="text" name="keyword" placeholder="Search Posts">
         <button type="submit">Search</button>

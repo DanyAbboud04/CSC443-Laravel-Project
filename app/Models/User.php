@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+    // represent the data we are using, like a class
     use HasFactory, Notifiable;
 
     /**

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Session;
 
 class AuthManager extends Controller
 {
+    //  it is the logic that deals with user request, reads data, updates the database etc
     function signinPost(Request $request){
         $request->validate([
             'email' => 'required|email',
@@ -22,9 +23,9 @@ class AuthManager extends Controller
             $user = Auth::user(); //if we enter get user
     
             if ($user->is_admin) {
-                return redirect()->intended(route('admin'));
+                return redirect()->intended(route('admin'));  //retun admin view
             } else {
-                return redirect()->route('home.view');
+                return redirect()->route('home.view');//retun home view
             }
         } else {
             return redirect()->route('signin')->with('error', 'Invalid Email or Password');

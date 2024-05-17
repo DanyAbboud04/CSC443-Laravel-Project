@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminCheck
 {
+    // used to check for user authentication for more security, checks if user has permussion to enter as user or admin
     /**
      * Handle an incoming request.
      *

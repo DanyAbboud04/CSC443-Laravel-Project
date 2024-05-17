@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminCheck;
 
-
+//map of your application, determine which handles request and which method to use
 Route::get('/', function () {return view('signin');})->name('signin'); //route for url / return signin view
 
 //login
