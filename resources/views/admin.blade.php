@@ -211,25 +211,22 @@
     <script>
     function toggleVisibility(id, button) {
         var container = document.getElementById(id);
-        var isVisible = container.style.display === 'block';  //check if container is visible
-        container.style.display = isVisible ? 'none' : 'block'; //if yes make it none else block
-        button.textContent = isVisible ? `Show ${id.includes('user') ? 'Users' : 'Posts'}` : `Hide ${id.includes('user') ? 'Users' : 'Posts'}`;  //changes button name hasab aya button houwe
-        localStorage.setItem(id + '-visible', !isVisible);// Save the visibility state of the container in localStorage
+        var isVisible = container.style.display === 'block';  
+        container.style.display = isVisible ? 'none' : 'block'; 
+        button.textContent = isVisible ? `Show ${id.includes('user') ? 'Users' : 'Posts'}` : `Hide ${id.includes('user') ? 'Users' : 'Posts'}`; 
+        localStorage.setItem(id + '-visible', !isVisible);
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        //get user w post
         var userContainer = document.getElementById('userContainer');
         var postContainer = document.getElementById('postContainer');
 
-        // Get the visibility state of the containers from localStorage
         var userVisible = JSON.parse(localStorage.getItem('userContainer-visible'));
         var postVisible = JSON.parse(localStorage.getItem('postContainer-visible'));
 
-        userContainer.style.display = userVisible ? 'block' : 'none'; //set display of container user
-        postContainer.style.display = postVisible ? 'block' : 'none';//set display of container post
+        userContainer.style.display = userVisible ? 'block' : 'none'; 
+        postContainer.style.display = postVisible ? 'block' : 'none';
 
-        //update buttons
         document.querySelector('.show-users').textContent = userVisible ? 'Hide Users' : 'Show Users';
         document.querySelector('.show-posts').textContent = postVisible ? 'Hide Posts' : 'Show Posts';
     });

@@ -241,7 +241,7 @@
             border: none;
             cursor: pointer;
             border-radius: 0 5px 5px 0;
-            margin-left: -5px; /* Adjust as needed */
+            margin-left: -5px; 
         }
 
         .sort-container select {

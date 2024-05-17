@@ -22,10 +22,10 @@
     .form-inner form.signup .name-fields-container {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 20px; /* Optional: Add some spacing between the name fields and other fields */
+      margin-bottom: 20px;
     }
     .form-inner form.signup .name-fields-container .field {
-      width: 48%; /* Adjusted width to fit two fields side by side */
+      width: 48%;
     }
     ::selection{
       background: #1a75ff;
@@ -207,7 +207,7 @@
     }
     .form-inner form.signup .name-fields-container .field,
     .form-inner form.signup .field {
-      width: 100%; /* Adjusted width to full width for better layout */
+      width: 100%;
     }
     .error{
         display: flex;
@@ -255,7 +255,6 @@
                 <a href="{{ url('/enter-as-guest') }}">Enter as Guest</a>
             </div>
             <div id="errors" class="error">
-                <!-- Display Error Messages -->
                     @if($errors->any())
                         <div>
                             @foreach($errors->all() as $err)
@@ -329,10 +328,10 @@
         if (signupPassword.value !== confirmPassword.value) {
             passwordMismatchWarning.textContent = "Passwords do not match";
             passwordMismatchWarning.style.display = "inline-block";
-            event.preventDefault(); // Prevent form submission
+            event.preventDefault(); 
         }
         else {
-            passwordMismatchWarning.textContent = ""; // Clear warning if passwords match
+            passwordMismatchWarning.textContent = ""; 
             passwordMismatchWarning.style.display = "none";
         }
     });

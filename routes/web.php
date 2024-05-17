@@ -17,7 +17,7 @@ Route::post('/signin', [AuthManager::class, 'signinPost'])->name('signin.post');
 
 Route::middleware([AdminCheck::class])->group(function () {
     Route::get('/admin', function () { return view('admin'); })->name('admin');
-    Route::get('/admin', [AuthManager::class, 'getAdminPostsAndUsers'])->name('admin');
+    Route::get('/admin', [AuthManager::class, 'getAdminPostsAndUsers'])->name('admin'); //get route for  /admin call method getAdminPostsAndUsers in authmanager where we are returning users and post 
     Route::post('/toggle-user-status/{id}', [AuthManager::class, 'toggleUserStatus'])->name('toggle-user-status');
     Route::delete('/delete-guest/{id}', [AuthManager::class, 'deleteGuest'])->name('delete-guest');
 });
